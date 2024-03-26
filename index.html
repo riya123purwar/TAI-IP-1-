@@ -1,0 +1,216 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+</head>
+<body>
+    <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+        <input id="fileInput" type="file" name="file">
+        <button type="submit">Upload File</button>
+    </form>
+    <div id="publicUrl"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const publicUrl = await response.text();
+                document.getElementById('publicUrl').innerText = 'Public URL: ' + publicUrl;
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                document.getElementById('publicUrl').innerText = 'Error uploading file';
+            }
+        });
+    </script>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.7); /* Transparent black pop-up box */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative; /* Positioning for pop-up */
+            z-index: 1; /* Ensure upload form is above pop-up */
+        }
+
+        input[type="file"] {
+            display: none; /* Hide default file input */
+        }
+
+        .custom-file-input {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-file-input:hover {
+            background-color: #0056b3;
+        }
+
+        .custom-file-input::before {
+            content: 'Choose File'; /* Displayed text */
+            display: inline-block;
+            background-color: inherit;
+            color: inherit;
+            border: inherit;
+            padding: inherit;
+            border-radius: inherit;
+            cursor: inherit;
+        }
+
+        .custom-file-input:focus {
+            outline: none; /* Remove focus outline */
+        }
+
+        .file-label {
+            margin-bottom: 10px;
+        }
+
+        .upload-button {
+            background-color: #28a745; /* Green upload button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background-color: #218838;
+        }
+
+        /* Stylish pop-up box */
+        #publicUrlPopup {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8); /* White semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 2; /* Above upload form */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #publicUrl {
+            margin-top: 20px;
+            font-weight: bold;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        #publicUrl span {
+            color: black; /* Set font color to black */
+        }
+
+        #publicUrl:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+
+        #closePublicUrl {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="fileInput" class="file-label custom-file-input">Choose File</label>
+        <input id="fileInput" type="file" name="file">
+        <button type="submit" class="upload-button">Upload File</button>
+    </form>
+
+    <!-- Public URL pop-up container -->
+    <div id="publicUrlPopup">
+        <div id="publicUrl"></div>
+        <span id="closePublicUrl">&times;</span>
+    </div>
+
+    <!-- Script to handle the form submission and display the public URL -->
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const publicUrl = await response.text();
+                document.getElementById('publicUrl').innerHTML = 'Public URL: <span>' + publicUrl + '</span>';
+                document.getElementById('publicUrlPopup').style.display = 'block'; // Show the public URL pop-up
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        });
+
+        // Close public URL pop-up box when close button is clicked
+        document.getElementById('closePublicUrl').addEventListener('click', () => {
+            document.getElementById('publicUrlPopup').style.display = 'none'; // Hide the public URL pop-up
+        });
+
+        // Fetch background image from Unsplash
+        fetch('https://source.unsplash.com/1920x1080/?nature').then(response => {
+            document.body.style.backgroundImage = `url(${response.url})`;
+        });
+    </script>
+</body>
+
+</html>

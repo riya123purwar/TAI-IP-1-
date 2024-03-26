@@ -1,0 +1,17 @@
+{
+    "name": "your-project-name",
+    "version": "1.0.0",
+    "description": "Description of your project",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Your Name",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.19.1",
+        "express-fileupload": "^1.5.0",
+        "googleapis": "^134.0.0"
+    }
+}
