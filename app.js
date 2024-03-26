@@ -7,10 +7,10 @@ const fs = require('fs');
 const app = express();
 const PORT = 3002;
 // Google Drive API credentials
-const CLIENT_ID = '325974571669-spuurdef61el9u6mrqmkdeuulmbfe579.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//040J9zvu_PIQCCgYIARAAGAQSNwF-L9Irlja4cpuAoHAmrW1HUJC5-SyPy4UQojBEDJmcWZ4Uh7j-B9igPAn2mc5mtTy4Dfljtnk';
+const CLIENT_ID = "WRITE YOUR CLIENT ID";
+const CLIENT_SECRET = 'WRITE YOUR CLIENT_SECRET';
+const REDIRECT_URI = 'WRITE YOUR';
+const REFRESH_TOKEN = 'WRITE YOUR REFRESH_TOKEN';
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
